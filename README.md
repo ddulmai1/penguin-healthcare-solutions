@@ -8,22 +8,20 @@ A full-stack healthcare application with a Spring Boot backend and Next.js front
 
 ## Quick Start
 
-### 1. Navigate to Frontend Directory
-\`\`\`bash
-cd Frontend
-\`\`\`
+### 1. Start the backend
+./gradlew bootRun
 
 ### 2. Start the Frontend
 \`\`\`bash
 npm install
-npm start
+npm run start
 \`\`\`
 Frontend runs on **http://localhost:3000**
 
 server runs on **http://localhost:8080**
 
 
-## Demo Mode (No Backend Required) - doesn't work right now
+## Patient Demo Mode (No Backend Required) 
 
 Test the patient record viewer immediately without setting up the backend:
 
