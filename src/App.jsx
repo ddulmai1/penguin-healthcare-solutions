@@ -3,9 +3,14 @@ import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
+    <Router>
     <div className="App">
-      <LoginForm />
+      <Routes>
+      <Route path = "/" element ={<LoginForm />}/>
+      <Route path = "/" element ={<PatientRecordController />}/>
+      </Routes>
     </div>
+    </Router>
   );
 }
 

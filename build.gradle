@@ -10,9 +10,9 @@ description = 'Class project'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(24)
+		languageVersion = JavaLanguageVersion.of(25)
 	}
-}
+} 
 
 repositories {
 	mavenCentral()
@@ -20,6 +20,7 @@ repositories {
 
 ext {
 	set('springAiVersion', "1.0.3")
+
 }
 
 dependencies {

@@ -2,7 +2,7 @@
 
 export async function verifyAccess(userRole, patientId) {
   try {
-    const response = await fetch("http://localhost:8080/api/access/verify", {
+    const response = await fetch("../services/PatientService", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userRole, patientId }),
