@@ -2,7 +2,7 @@
 
 export async function verifyAccess(userRole, patientId) {
   try {
-    const response = await fetch("../services/PatientService", {
+    const response = await fetch("http://localhost:8080/api/patients/verify-access", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userRole, patientId }),
@@ -18,7 +18,10 @@ export async function verifyAccess(userRole, patientId) {
 
 export async function getPatientRecord(patientId) {
   try {
-    const response = await fetch(`http://localhost:8080/api/patients/${patientId}`, {
+    // Convert string ID format (P001, P002, etc) to numeric ID (1, 2, etc)
+    const numericId = patientId.replace(/\D/g, '') || patientId
+    
+    const response = await fetch(`http://localhost:8080/api/patients/${numericId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })

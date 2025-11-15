@@ -1,0 +1,97 @@
+.container {
+  min-height: 100vh;
+  background: #f7fafc;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, #0a3d62, #1a5f7a);
+  color: white;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.welcome {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.btn {
+  background: white;
+  color: #0a3d62;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.main {
+  padding: 2rem;
+  flex: 1;
+}
+
+.cardRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(10, 37, 77, 0.06);
+}
+
+.card h3 {
+  margin: 0 0 0.5rem 0;
+}
+
+.card p {
+  margin: 0 0 1rem 0;
+  color: #4b5563;
+}
+
+.cardBtn {
+  background: linear-gradient(90deg,#0a3d62,#1a5f7a);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.infoSection {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(10, 37, 77, 0.06);
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+}

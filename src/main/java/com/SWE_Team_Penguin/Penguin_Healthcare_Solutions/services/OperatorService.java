@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 
+import java.util.Optional;
 import java.sql.Date;
 import java.util.List;
 
@@ -30,9 +31,15 @@ public class OperatorService {
     public List<Operator> getAllOperators(){
         return operatorRepository.findAll();
     }
+
+    public Optional<Operator> findByUsername(String username) {
+        return operatorRepository.findByUsername(username);
+    }
+
     @PostConstruct
     public void login() {
         createOperator(new Operator("Admin", "12345", Operator.Role.NURSE, "John", "Doe", Date.valueOf("1912-12-12"), Gender.MAN, "None"));
+        createOperator(new Operator("Rita", "pass", Operator.Role.DOCTOR, "Rita", "Doe", Date.valueOf("1912-12-12"), Gender.WOMAN, "None"));
     }
     }
 

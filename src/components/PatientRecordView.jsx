@@ -35,7 +35,7 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
         return
       }
 
-      // Step 1: Verify access (following sequence diagram)
+      // Step 1: Verify access (following sequence diagram) - skipped in demo mode
       const accessResponse = await verifyAccess(userRole, patientId)
 
       if (!accessResponse.accessGranted) {
@@ -62,7 +62,7 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
   }
 
   return (
-    <div className="patient-record-container">
+    <div className={demoMode ? "patient-record-demo" : "patient-record-container"}>
       {demoMode && (
         <div className="demo-banner">
           <strong>Demo Mode:</strong> Using mock data. Try patient IDs: P001, P002, or P003

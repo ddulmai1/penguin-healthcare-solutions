@@ -1,9 +1,9 @@
 export async function authenticateUser(username, password) {
   try {
-    const response = await fetch("http://localhost:3000/api/operators/username/Admin/password/12345", {
-      method: "GET",
+    const response = await fetch("http://localhost:8080/api/operators/authenticate", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      //body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password }),
     });
 
     const data = await response.json()
@@ -13,3 +13,4 @@ export async function authenticateUser(username, password) {
     return { success: false, message: "Unable to connect to server" };
   }
 }
+

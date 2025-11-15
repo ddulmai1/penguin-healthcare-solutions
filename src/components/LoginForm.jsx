@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { authenticateUser } from "../services/authService"
 import styles from "./LoginForm.module.css"
 
@@ -8,6 +9,7 @@ export default function LoginForm() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [message, setMessage] = useState("")
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -16,15 +18,19 @@ export default function LoginForm() {
     try {
       const response = await authenticateUser(username, password)
       if (response.success) {
-        setMessage(`Welcome ${response.role}! Redirecting to dashboard...`)
+        // store minimal session info
+        localStorage.setItem("user", JSON.stringify(response))
+        localStorage.setItem("userRole", response.role)
+
+        // navigate to dashboard
+        navigate("/dashboard")
       } else {
-        setMessage("Invalid username or password")
+        setMessage(response.message || "Invalid username or password")
       }
-    } catch (error) {
+    } catch (err) {
       setMessage("Error connecting to server")
     }
   }
-
   return (
     <div className={styles["login-wrapper"]}>
       <div className={styles["branding"]}>
