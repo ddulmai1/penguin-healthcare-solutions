@@ -82,3 +82,71 @@
   box-shadow: 0 4px 12px rgba(10, 61, 98, 0.2);
 }
 
+.patientIdPromptOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 61, 98, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.patientIdPromptForm {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(10, 61, 98, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 320px;
+}
+
+.patientIdInput {
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #dcdde1;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.promptButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.confirmButton {
+  background: #0a3d62;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.confirmButton:hover {
+  background: #1a5f7a;
+}
+
+.cancelButton {
+  background: #f0f1f2;
+  color: #0a3d62;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cancelButton:hover {
+  background: #dcdde1;
+}
+

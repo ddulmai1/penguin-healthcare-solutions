@@ -40,3 +40,28 @@ export async function getPatientRecord(patientId) {
     return { success: false, message: "Unable to connect to server" }
   }
 }
+
+// Update a patient record. Sends the full patient object to backend PUT endpoint.
+export async function updatePatientRecord(patientId, updatedRecord) {
+  try {
+    // Convert string ID like P001 to numeric id when needed
+    const numericId = String(patientId).replace(/\D/g, '') || patientId
+
+    const response = await fetch(`http://localhost:8080/api/patients/${numericId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedRecord),
+    })
+
+    if (!response.ok) {
+      const text = await response.text()
+      return { success: false, message: `Server error: ${response.status} ${text}` }
+    }
+
+    const data = await response.json()
+    return { success: true, data }
+  } catch (error) {
+    console.error("Error updating patient record:", error)
+    return { success: false, message: "Unable to connect to server" }
+  }
+}

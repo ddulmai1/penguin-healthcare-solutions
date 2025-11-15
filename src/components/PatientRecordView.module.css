@@ -4,6 +4,51 @@
   padding: 2rem;
 }
 
+.header-controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.back-btn,
+.add-patient-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-btn {
+  background: #6b7280;
+  color: white;
+}
+
+.back-btn:hover {
+  background: #4b5563;
+}
+
+.add-patient-btn {
+  background: #10b981;
+  color: white;
+}
+
+.add-patient-btn:hover {
+  background: #059669;
+}
+
+.update-patient-btn {
+  background: #3b82f6;
+  color: white;
+}
+
+.update-patient-btn:hover {
+  background: #2563eb;
+}
+
 .patient-record-container h2 {
   color: #2c3e50;
   margin-bottom: 1.5rem;
@@ -63,6 +108,82 @@
 .search-form button:disabled {
   background: #9ca3af;
   cursor: not-allowed;
+}
+
+.add-patient-form {
+  background: #f0f4ff;
+  border: 2px solid #bfdbfe;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-patient-form h3 {
+  color: #1e40af;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-grid .form-group {
+  margin-bottom: 0;
+}
+
+.form-grid select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-grid select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.create-btn,
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.create-btn {
+  background: #10b981;
+  color: white;
+}
+
+.create-btn:hover {
+  background: #059669;
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
 }
 
 .error-message {
@@ -188,6 +309,15 @@
     padding: 1rem;
   }
 
+  .header-controls {
+    flex-direction: column;
+  }
+
+  .back-btn,
+  .add-patient-btn {
+    width: 100%;
+  }
+
   .info-grid {
     grid-template-columns: 1fr;
   }
@@ -202,6 +332,19 @@
   .test-results th,
   .test-results td {
     padding: 0.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .create-btn,
+  .cancel-btn {
+    width: 100%;
   }
 }
 
@@ -277,4 +420,123 @@
 .status-borderline {
   color: #d97706;
   font-weight: 500;
+}
+
+/* Edit controls and form styles */
+.edit-controls {
+  padding: 1rem 1.5rem;
+  background: #f0f4ff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  gap: 1rem;
+}
+
+.edit-controls button {
+  background: #6366f1;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.edit-controls button:hover {
+  background: #4f46e5;
+}
+
+.success-message {
+  background: #d1fae5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.edit-section {
+  background: #f9fafb;
+  border: 2px dashed #bfdbfe;
+}
+
+.edit-section h4 {
+  border-bottom: 2px solid #3b82f6;
+}
+
+.form-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-inline input {
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.form-inline input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-inline button {
+  background: #10b981;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.form-inline button:hover {
+  background: #059669;
+}
+
+.actions {
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 1rem;
+}
+
+.actions button {
+  background: #6366f1;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.actions button:hover {
+  background: #4f46e5;
+}
+
+@media (max-width: 768px) {
+  .edit-controls {
+    flex-wrap: wrap;
+  }
+
+  .form-inline {
+    gap: 0.5rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
 }

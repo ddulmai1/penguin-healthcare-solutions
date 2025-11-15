@@ -7,6 +7,8 @@ import styles from "./dashboard.module.css"
 export default function Dashboard() {
   const [user, setUser] = useState(null)
   const [userRole, setUserRole] = useState(null)
+  const [showPatientIdPrompt, setShowPatientIdPrompt] = useState(false)
+  const [patientIdInput, setPatientIdInput] = useState("")
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -37,6 +39,19 @@ export default function Dashboard() {
 
   const handleViewPatientRecordDemo = () => {
     navigate("/patient-record-demo")
+  }
+
+  const handleUpdatePatientClick = () => {
+    setShowPatientIdPrompt(true)
+  }
+
+  const handlePatientIdSubmit = (e) => {
+    e.preventDefault()
+    if (patientIdInput.trim()) {
+      navigate(`/update-patient/${patientIdInput.trim()}`)
+      setShowPatientIdPrompt(false)
+      setPatientIdInput("")
+    }
   }
 
   if (!user) {
@@ -72,11 +87,31 @@ export default function Dashboard() {
           >
             Demo Mode
           </button>
-          <button className={styles.card}>Update Patient</button>
+          <button className={styles.card} onClick={handleUpdatePatientClick}>Update Patient</button>
+          <button className={styles.card}>Admissions</button>
           <button className={styles.card}>Appointments</button>
           <button className={styles.card}>Prescription</button>
           <button className={styles.card}>AI‑Assisted Diagnosis</button>
         </div>
+        {showPatientIdPrompt && (
+          <div className={styles.patientIdPromptOverlay}>
+            <form className={styles.patientIdPromptForm} onSubmit={handlePatientIdSubmit}>
+              <label htmlFor="patientIdInput">Enter Patient ID:</label>
+              <input
+                id="patientIdInput"
+                type="text"
+                value={patientIdInput}
+                onChange={e => setPatientIdInput(e.target.value)}
+                className={styles.patientIdInput}
+                autoFocus
+              />
+              <div className={styles.promptButtons}>
+                <button type="submit" className={styles.confirmButton}>Confirm</button>
+                <button type="button" className={styles.cancelButton} onClick={() => setShowPatientIdPrompt(false)}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        )}
       </main>
     </div>
   )
