@@ -1,6 +1,6 @@
 # Penguin Healthcare Application
 
-A full-stack healthcare application with a Spring Boot backend and Next.js frontend.
+A full-stack healthcare application with a gradle java backend and Next.js frontend.
 
 ## Architecture
 - **Backend:** Gradle (Java)
