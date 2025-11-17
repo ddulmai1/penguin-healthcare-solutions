@@ -54,6 +54,10 @@ export default function Dashboard() {
     }
   }
 
+  const handleAdmissions = () => {
+    navigate("/admissions")
+  }
+
   if (!user) {
     return <div>Loading...</div>
   }
@@ -75,6 +79,7 @@ export default function Dashboard() {
 
       <main className={styles.content}>
         <div className={styles.grid}>
+        <button className={styles.card}>Register Patient</button>
           <button 
             onClick={handleViewPatientRecord} 
             className={styles.card}
@@ -88,7 +93,7 @@ export default function Dashboard() {
             Demo Mode
           </button>
           <button className={styles.card} onClick={handleUpdatePatientClick}>Update Patient</button>
-          <button className={styles.card}>Admissions</button>
+          <button className={styles.card} onClick={handleAdmissions}>Admissions</button>
           <button className={styles.card}>Appointments</button>
           <button className={styles.card}>Prescription</button>
           <button className={styles.card}>AI‑Assisted Diagnosis</button>
