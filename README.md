@@ -22,7 +22,7 @@ Frontend runs on **http://localhost:3000**
 
 ## Patient Demo Mode (No Backend Required) 
 
-Test the patient record viewer immediately without setting up the backend:
+Test the patient record viewer without setting up the backend:
 
 1. Start the frontend: `npm start`
 2. Visit **http://localhost:3000/patient-record-demo**
@@ -38,9 +38,15 @@ Demo mode uses mock data and bypasses authentication, frontend development and t
 - `/` - Login page (requires backend)
 - `/patient-record` - Patient record viewer with authentication (requires backend)
 - `/patient-record-demo` - Patient record viewer with mock data (no backend needed) - added for test purposes only
+- `/admissions` - ADT submission (requires backend)
+- `/admissions-demo` -ADT submission (no backend required) - added for test purpose only
+- `/update-patient` - update patient medical information (requires backend)
+- `/update-patient-demo/P001` (P002, P003) - update patient information (no backend required) - for test only
+- `/dashboard` - dashboard for easy navigation
 
 ## Test Credentials
 - **Admin:** username: `admin`, password: `12345`
+- **Clinician:** username: `Rita`, password: `pass`
 
 
 ### Implemented Use Cases
@@ -49,6 +55,8 @@ Demo mode uses mock data and bypasses authentication, frontend development and t
   - Demographics, medical history, medications, and test results
   - Access control verification
   - Error handling for denied access or missing records
+- **UC3:** Update Patient Record
+- **UC4:** Admission notifications 
 
 ## Development Notes
 - Backend must be running before frontend can authenticate users
