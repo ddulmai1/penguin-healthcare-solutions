@@ -1,7 +1,6 @@
-package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.Services;
+package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services;
 
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Medication;
-import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.MedicationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

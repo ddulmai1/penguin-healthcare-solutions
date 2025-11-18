@@ -1,4 +1,4 @@
-package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.Services;
+package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services;
 
 import org.springframework.boot.test.context.TestConfiguration;
 
