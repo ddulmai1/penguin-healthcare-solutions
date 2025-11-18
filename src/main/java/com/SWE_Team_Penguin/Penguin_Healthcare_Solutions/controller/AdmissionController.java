@@ -2,6 +2,7 @@ package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.controller;
 
 
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Admission;
+import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Patient;
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.AdmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ public class AdmissionController {
     @PostMapping("/createAdmission")
     public Admission createAdmission(@RequestBody Admission admission) {
         return admissionService.createAdmission(admission.getPatient(), admission.getOperator(),
-                admission.getStatus(), admission.getNotes());
+                admission.getStatus(), admission.getNotes(),  admission.getDepartment(), admission.getRoomNumber(),
+                admission.getEncounterType());
     }
 
     @PostMapping("/updateAdmission")

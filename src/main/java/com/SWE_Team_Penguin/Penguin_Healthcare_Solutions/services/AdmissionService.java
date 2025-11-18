@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -30,9 +31,10 @@ public class AdmissionService {
         return admissionRepository.findAll();
     }
 
-    public Admission createAdmission(Patient patient, Operator operator, Admission.Status status, String notes) {
-        return admissionRepository.save(new Admission(patient, operator, status, new Date(System.currentTimeMillis()),
-                new Time(System.currentTimeMillis()), notes));
+    public Admission createAdmission(Patient patient, Operator operator, Admission.Status status, String notes,
+                                     String department, String roomNumber, Admission.EncounterType encounterType) {
+        return admissionRepository.save(new Admission(patient, operator, status, new Timestamp(System.currentTimeMillis()),
+                notes, department, roomNumber, encounterType));
     }
 
     public Admission updateAdmission(Admission admission) {

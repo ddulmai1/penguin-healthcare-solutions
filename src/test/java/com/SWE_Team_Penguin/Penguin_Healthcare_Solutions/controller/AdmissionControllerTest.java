@@ -2,25 +2,22 @@ package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.controller;
 
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.*;
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 
 @SpringBootTest
@@ -49,7 +46,8 @@ public class AdmissionControllerTest {
         Operator operator = operatorService.createOperator( new Operator("operator", "password",
                 Operator.Role.NURSE, "Operator", "Name", Date.valueOf("1912-12-12"), Gender.MAN,
                 "None"));
-        Admission admission = new Admission(patient, operator, Admission.Status.ADMITTED, new Date(0), new Time(0), "");
+        Admission admission = new Admission(patient, operator, Admission.Status.ADMITTED, new Timestamp(0), "",
+                "ER", "5b", Admission.EncounterType.EMERGENCY);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/admission/createAdmission").
                 contentType(MediaType.APPLICATION_JSON).
                 content(mapper.writeValueAsString(admission))).andExpect(status().isOk());
@@ -64,7 +62,8 @@ public class AdmissionControllerTest {
         Operator operator = operatorService.createOperator( new Operator("operator", "password",
                 Operator.Role.NURSE, "Operator", "Name", Date.valueOf("1912-12-12"), Gender.MAN,
                 "None"));
-        Admission admission = admissionService.createAdmission(patient, operator, Admission.Status.ADMITTED,  "");
+        Admission admission = admissionService.createAdmission(patient, operator, Admission.Status.ADMITTED,  "",
+                "ER", "5b", Admission.EncounterType.EMERGENCY);
         admission.setStatus(Admission.Status.DISCHARGED);
         mockMvc.perform(MockMvcRequestBuilders.post("/api/admission/updateAdmission").
                 contentType(MediaType.APPLICATION_JSON).
@@ -80,7 +79,8 @@ public class AdmissionControllerTest {
         Operator operator = operatorService.createOperator( new Operator("operator", "password",
                 Operator.Role.NURSE, "Operator", "Name", Date.valueOf("1912-12-12"), Gender.MAN,
                 "None"));
-        Admission admission = admissionService.createAdmission(patient, operator, Admission.Status.ADMITTED, "");
+        Admission admission = admissionService.createAdmission(patient, operator, Admission.Status.ADMITTED, "",
+                "ER", "5b", Admission.EncounterType.EMERGENCY);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/admission//getAdmission/user/" + admission.getId())).andExpect(status().isOk());
 

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Entity
 public class Admission {
@@ -12,6 +13,12 @@ public class Admission {
         ADMITTED,
         DISCHARGED,
         TRANSFERRED
+    }
+
+    public enum EncounterType{
+        INPATIENT,
+        OUTPATIENT,
+        EMERGENCY
     }
 
     @Id
@@ -25,32 +32,39 @@ public class Admission {
     private Operator operator;
     @Enumerated(EnumType.STRING)
     private Admission.Status status;
-    private Date date;
-    private Time time;
+    private Timestamp dateTime;
     private String notes;
+    private String department;
+    private String roomNumber;
+    @Enumerated(EnumType.STRING)
+    private EncounterType  encounterType;
 
     public Admission() {
     }
 
-    public Admission(long id, Patient patient, Operator operator, Status status, Date date,
-                     Time time, String notes) {
+    public Admission(long id, Patient patient, Operator operator, Status status, Timestamp dateTime, String notes,
+                     String department, String roomNumber, EncounterType encounterType) {
         this.id = id;
         this.patient = patient;
         this.operator = operator;
         this.status = status;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.notes = notes;
+        this.department = department;
+        this.roomNumber = roomNumber;
+        this.encounterType = encounterType;
     }
 
-    public Admission(Patient patient, Operator operator, Status status, Date date, Time time,
-                     String notes) {
+    public Admission(Patient patient, Operator operator, Status status, Timestamp dateTime, String notes,
+                     String department, String roomNumber, EncounterType encounterType) {
         this.patient = patient;
         this.operator = operator;
         this.status = status;
-        this.date = date;
-        this.time = time;
+        this.dateTime = dateTime;
         this.notes = notes;
+        this.department = department;
+        this.roomNumber = roomNumber;
+        this.encounterType = encounterType;
     }
 
     public long getId() {
@@ -85,27 +99,43 @@ public class Admission {
         this.status = status;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
-
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public EncounterType getEncounterType() {
+        return encounterType;
+    }
+
+    public void setEncounterType(EncounterType encounterType) {
+        this.encounterType = encounterType;
+    }
+
+    public Timestamp getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(Timestamp dateTime) {
+        this.dateTime = dateTime;
     }
 }
