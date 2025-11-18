@@ -1,0 +1,32 @@
+node_modules
+
+# Java/Gradle build files
+.gradle/
+build/
+bin/
+*.class
+*.jar
+*.war
+.settings/
+.classpath
+.project
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
