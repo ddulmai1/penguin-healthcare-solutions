@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { verifyAccess, getPatientRecord } from "../services/patientRecordService"
 import { getMockPatientRecord } from "../data/mockPatientData"
-import "./PatientRecordView.module.css"
+import styles from "./PatientRecordView.module.css"
 
 export default function PatientRecordView({ userRole = "Clinician", demoMode = false }) {
+  const navigate = useNavigate()
   const [patientId, setPatientId] = useState("")
   const [patientRecord, setPatientRecord] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -35,7 +37,7 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
         return
       }
 
-      // Step 1: Verify access (following sequence diagram)
+      // Step 1: Verify access (following sequence diagram) - skipped in demo mode
       const accessResponse = await verifyAccess(userRole, patientId)
 
       if (!accessResponse.accessGranted) {
@@ -62,17 +64,31 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
   }
 
   return (
-    <div className="patient-record-container">
+    <div className={demoMode ? styles["patient-record-demo"] : styles["patient-record-container"]}>
+      <div className={styles["header-controls"]}>
+        <button className={styles["back-btn"]} onClick={() => navigate("/dashboard")} title="Go back to dashboard">
+          ← Back to Dashboard
+        </button>
+        {patientRecord && (userRole === "Clinician" || userRole === "Nurse") && (
+          <button className={styles["update-patient-btn"]} onClick={() => {
+            const pid = patientRecord.patientID || patientRecord.patientId || patientId
+            navigate(`/update-patient/${pid}`)
+          }} title="Update this patient's record">
+            📝 Update Patient
+          </button>
+        )}
+      </div>
+
       {demoMode && (
-        <div className="demo-banner">
+        <div className={styles["demo-banner"]}>
           <strong>Demo Mode:</strong> Using mock data. Try patient IDs: P001, P002, or P003
         </div>
       )}
 
       <h2>View Patient Record</h2>
 
-      <form onSubmit={handleViewRecord} className="search-form">
-        <div className="form-group">
+      <form onSubmit={handleViewRecord} className={styles["search-form"]}>
+        <div className={styles["form-group"]}>
           <label htmlFor="patientId">Patient ID</label>
           <input
             id="patientId"
@@ -89,79 +105,80 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
       </form>
 
       {error && (
-        <div className="error-message">
+        <div className={styles["error-message"]}>
           <strong>Error:</strong> {error}
         </div>
       )}
 
       {patientRecord && (
-        <div className="patient-record">
+        <div className={styles["patient-record"]}>
+
           <h3>Patient Information</h3>
 
-          <section className="record-section">
+          <section className={styles["record-section"]}>
             <h4>Demographics</h4>
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="label">Patient ID:</span>
-                <span className="value">{patientRecord.patientID || patientRecord.patientId}</span>
+            <div className={styles["info-grid"]}>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Patient ID:</span>
+                <span className={styles["value"]}>{patientRecord.patientID || patientRecord.patientId}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Name:</span>
-                <span className="value">
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Name:</span>
+                <span className={styles["value"]}>
                   {patientRecord.demographics
                     ? `${patientRecord.demographics.firstName} ${patientRecord.demographics.lastName}`
                     : patientRecord.name}
                 </span>
               </div>
-              <div className="info-item">
-                <span className="label">Date of Birth:</span>
-                <span className="value">{patientRecord.demographics?.dateOfBirth || patientRecord.dateOfBirth}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Date of Birth:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.dateOfBirth || patientRecord.dateOfBirth}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Age:</span>
-                <span className="value">{patientRecord.demographics?.age || "N/A"}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Age:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.age || "N/A"}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Gender:</span>
-                <span className="value">{patientRecord.demographics?.gender || patientRecord.gender}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Gender:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.gender || patientRecord.gender}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Blood Type:</span>
-                <span className="value">{patientRecord.demographics?.bloodType || "N/A"}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Blood Type:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.bloodType || "N/A"}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Phone:</span>
-                <span className="value">{patientRecord.demographics?.phone || patientRecord.contact}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Phone:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.phone || patientRecord.contact}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Email:</span>
-                <span className="value">{patientRecord.demographics?.email || "N/A"}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Email:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.email || "N/A"}</span>
               </div>
-              <div className="info-item">
-                <span className="label">Address:</span>
-                <span className="value">{patientRecord.demographics?.address || patientRecord.address}</span>
+              <div className={styles["info-item"]}>
+                <span className={styles["label"]}>Address:</span>
+                <span className={styles["value"]}>{patientRecord.demographics?.address || patientRecord.address}</span>
               </div>
             </div>
           </section>
 
-          <section className="record-section">
+          <section className={styles["record-section"]}>
             <h4>Medical History</h4>
-            <div className="history-content">
+            <div className={styles["history-content"]}>
               {patientRecord.medicalHistory && patientRecord.medicalHistory.length > 0 ? (
-                <div className="history-list">
+                <div className={styles["history-list"]}>
                   {patientRecord.medicalHistory.map((item, index) => (
-                    <div key={index} className="history-item">
+                    <div key={index} className={styles["history-item"]}>
                       {typeof item === "string" ? (
                         <p>{item}</p>
                       ) : (
                         <>
-                          <div className="history-header">
+                          <div className={styles["history-header"]}>
                             <strong>{item.condition}</strong>
-                            <span className={`status-badge ${item.status?.toLowerCase()}`}>{item.status}</span>
+                            <span className={`${styles["status-badge"]} ${styles[item.status?.toLowerCase()]}`}>{item.status}</span>
                           </div>
-                          <div className="history-details">
+                          <div className={styles["history-details"]}>
                             <span>Diagnosed: {item.diagnosedDate}</span>
-                            {item.notes && <p className="notes">{item.notes}</p>}
+                            {item.notes && <p className={styles["notes"]}>{item.notes}</p>}
                           </div>
                         </>
                       )}
@@ -174,9 +191,9 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
             </div>
           </section>
 
-          <section className="record-section">
+          <section className={styles["record-section"]}>
             <h4>Current Medications</h4>
-            <div className="medications-list">
+            <div className={styles["medications-list"]}>
               {patientRecord.medications && patientRecord.medications.length > 0 ? (
                 <table>
                   <thead>
@@ -206,9 +223,9 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
             </div>
           </section>
 
-          <section className="record-section">
+          <section className={styles["record-section"]}>
             <h4>Test Results</h4>
-            <div className="test-results">
+            <div className={styles["test-results"]}>
               {patientRecord.testResults && patientRecord.testResults.length > 0 ? (
                 <table>
                   <thead>
@@ -226,7 +243,7 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
                         <td>{test.testName}</td>
                         <td>{test.date}</td>
                         <td>{test.result}</td>
-                        <td className={`status-${test.status?.toLowerCase()}`}>{test.status}</td>
+                        <td className={`${styles[`status-${test.status?.toLowerCase()}`]}`}>{test.status}</td>
                         <td>{test.orderedBy || "N/A"}</td>
                       </tr>
                     ))}

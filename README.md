@@ -8,24 +8,21 @@ A full-stack healthcare application with a gradle java backend and Next.js front
 
 ## Quick Start
 
-### 1. Navigate to Frontend Directory
-\`\`\`bash
-cd Frontend
-\`\`\`
+### 1. Start the backend
+./gradlew bootRun
 
 ### 2. Start the Frontend
 \`\`\`bash
 npm install
-npm start
+npm run start
 \`\`\`
 Frontend runs on **http://localhost:3000**
 
-server runs on **http://localhost:8080**
 
 
-## Demo Mode (No Backend Required) - doesn't work right now
+## Patient Demo Mode (No Backend Required) 
 
-Test the patient record viewer immediately without setting up the backend:
+Test the patient record viewer without setting up the backend:
 
 1. Start the frontend: `npm start`
 2. Visit **http://localhost:3000/patient-record-demo**
@@ -34,37 +31,23 @@ Test the patient record viewer immediately without setting up the backend:
    - **P002** - Jane Smith (asthma and migraine)
    - **P003** - Robert Johnson (minimal history)
 
-Demo mode uses mock data and bypasses authentication, perfect for frontend development and testing.
+Demo mode uses mock data and bypasses authentication, frontend development and testing.
 
 ## Available Routes
 
 - `/` - Login page (requires backend)
 - `/patient-record` - Patient record viewer with authentication (requires backend)
-- `/patient-record-demo` - Patient record viewer with mock data (no backend needed) - added for test purposes but really doesnt work
+- `/patient-record-demo` - Patient record viewer with mock data (no backend needed) - added for test purposes only
+- `/admissions` - ADT submission (requires backend)
+- `/admissions-demo` -ADT submission (no backend required) - added for test purpose only
+- `/update-patient` - update patient medical information (requires backend)
+- `/update-patient-demo/P001` (P002, P003) - update patient information (no backend required) - for test only
+- `/dashboard` - dashboard for easy navigation
 
 ## Test Credentials
 - **Admin:** username: `admin`, password: `12345`
-- **User:** username: `john`, password: `pass`
+- **Clinician:** username: `Rita`, password: `pass`
 
-## Project Structure
-\`\`\`
-PenguinHealthcare/
-├── Backend/                 # Spring Boot REST API
-│   ├── src/
-│   │   ├── controller/     # REST controllers
-│   │   ├── service/        # Business logic
-│   │   ├── model/          # Data models
-│   │   └── dto/            # Data transfer objects
-│   └── pom.xml
-├── Frontend/               # Original React components
-│   └── src/
-│   |    ├── components/     # React components
-│   |    ├── services/       # API services
-│   |    └── data/           # Mock data for demo mode
-    |---App.jsx
-\`\`\`
-
-## Features
 
 ### Implemented Use Cases
 - **UC1:** User Authentication - Login with role-based access control
@@ -72,13 +55,12 @@ PenguinHealthcare/
   - Demographics, medical history, medications, and test results
   - Access control verification
   - Error handling for denied access or missing records
+- **UC3:** Update Patient Record
+- **UC4:** Admission notifications 
 
 ## Development Notes
 - Backend must be running before frontend can authenticate users
 
 
-## Current issues
-- not able to test the login and patient record page because the backend won't communicate with the front end
-- tried testing patient record page by creating a demo but it doesnt work, keeps going back to the login page
 
 
