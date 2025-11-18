@@ -1,13 +1,9 @@
-package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.Services;
+package com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services;
 
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Appointment;
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Gender;
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Operator;
 import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.model.Patient;
-import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.AppointmentService;
-import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.OperatorService;
-import com.SWE_Team_Penguin.Penguin_Healthcare_Solutions.services.PatientService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
