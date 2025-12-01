@@ -27,4 +27,10 @@ public class AppointmentService {
     public List<Appointment> getAllAppointments(){
         return appointmentRepository.findAll();
     }
+
+    public List<Appointment> getAllAppointmentsById(long id){
+        return appointmentRepository.findAll().stream().
+                filter(appointment -> appointment.getPatient().getId() == id
+                        || appointment.getOperator().getId() == id).toList();
+    }
 }

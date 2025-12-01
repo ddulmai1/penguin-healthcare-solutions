@@ -13,6 +13,11 @@ public class Patient {
         OTHER
     }
 
+    public enum PreferredContact{
+        EMAIL,
+        SMS
+    }
+
     @Id
     @GeneratedValue
     private long id;
@@ -27,9 +32,13 @@ public class Patient {
     private Sex sex;
     private String healthConcerns;
     private String notes;
+    @Enumerated(EnumType.STRING)
+    private PreferredContact preferredContact;
+    private String contactAddress;
 
     public Patient(String username, String password, String firstName, String lastName, Date dateOfBirth,
-                   Gender gender, Sex sex, String healthConcerns, String notes) {
+                   Gender gender, Sex sex, String healthConcerns, String notes, PreferredContact preferredContact,
+                   String contactAddress) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -39,13 +48,16 @@ public class Patient {
         this.sex = sex;
         this.healthConcerns = healthConcerns;
         this.notes = notes;
+        this.preferredContact = preferredContact;
+        this.contactAddress = contactAddress;
     }
 
     public Patient() {
     }
 
     public Patient(long id, String username, String password, String firstName, String lastName, Date dateOfBirth,
-                   Gender gender, Sex sex, String healthConcerns, String notes) {
+                   Gender gender, Sex sex, String healthConcerns, String notes, PreferredContact preferredContact,
+                   String contactAddress) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,6 +68,8 @@ public class Patient {
         this.sex = sex;
         this.healthConcerns = healthConcerns;
         this.notes = notes;
+        this.preferredContact = preferredContact;
+        this.contactAddress = contactAddress;
     }
 
     public long getId() {
@@ -136,5 +150,21 @@ public class Patient {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public PreferredContact getPreferredContact() {
+        return preferredContact;
+    }
+
+    public void setPreferredContact(PreferredContact preferredContact) {
+        this.preferredContact = preferredContact;
+    }
+
+    public String getContactAddress() {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress;
     }
 }
