@@ -79,11 +79,7 @@ export default function PatientRecordView({ userRole = "Clinician", demoMode = f
         )}
       </div>
 
-      {demoMode && (
-        <div className={styles["demo-banner"]}>
-          <strong>Demo Mode:</strong> Using mock data. Try patient IDs: P001, P002, or P003
-        </div>
-      )}
+
 
       <h2>View Patient Record</h2>
 

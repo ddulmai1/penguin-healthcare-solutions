@@ -103,7 +103,7 @@ export default function Dashboard() {
             onClick={handleViewPatientRecord} 
             className={styles.card}
           >
-            View Patient Records (Demo)
+            View Patient Records
           </button>
           <button 
             onClick={handleViewPatientRecordDemo} 

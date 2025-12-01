@@ -35,8 +35,8 @@ public class AppointmentController {
         appointmentService.removeAppointment(id);
     }
 
-    @GetMapping("/{id}")
-    public List<Appointment> getPatientAppointments(@PathVariable long id){
+    @GetMapping("/all/{id}")
+    public List<Appointment> getAllAppointmentsById(@PathVariable long id){
         return appointmentService.getAllAppointmentsById(id);
     }
 }
