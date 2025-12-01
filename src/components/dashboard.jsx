@@ -34,7 +34,7 @@ export default function Dashboard() {
   }
 
   const handleViewPatientRecord = () => {
-    navigate("/patient-record")
+    navigate("/patient-record-demo")
   }
 
   const handleViewPatientRecordDemo = () => {
@@ -103,7 +103,7 @@ export default function Dashboard() {
             onClick={handleViewPatientRecord} 
             className={styles.card}
           >
-            View Patient Records
+            View Patient Records (Demo)
           </button>
           <button 
             onClick={handleViewPatientRecordDemo} 
