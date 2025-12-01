@@ -66,6 +66,17 @@ export default function Dashboard() {
     navigate("/prescriptions")
   }
 
+  const handleAiDiagnosis = () => {
+    const url = process.env.REACT_APP_AI_DIAGNOSIS_URL
+    if (url && typeof url === "string" && url.trim().length > 0) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    } else {
+      alert(
+        "AI Diagnosis URL is not configured. Set REACT_APP_AI_DIAGNOSIS_URL in your .env and restart the app."
+      )
+    }
+  }
+
   if (!user) {
     return <div>Loading...</div>
   }
@@ -104,7 +115,7 @@ export default function Dashboard() {
           <button className={styles.card} onClick={handleAdmissions}>Admissions</button>
           <button className={styles.card} onClick={handleAppointments}>Appointments</button>
           <button className={styles.card} onClick={handlePrescriptions}>Prescription</button>
-          <button className={styles.card}>AI‑Assisted Diagnosis</button>
+          <button className={styles.card} onClick={handleAiDiagnosis}>AI‑Assisted Diagnosis</button>
         </div>
         {showPatientIdPrompt && (
           <div className={styles.patientIdPromptOverlay}>

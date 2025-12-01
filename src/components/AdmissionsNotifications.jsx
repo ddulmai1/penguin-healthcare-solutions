@@ -33,23 +33,23 @@ export default function AdmissionsNotifications({ demoMode = false }) {
       {
         id: 1,
         patientId: "P001",
-        patientName: "John Doe",
+        patientName: "Amani Kabongo",
         admissionType: "ADMISSION",
         encounterType: "INPATIENT",
         timestamp: "2025-11-16T10:30:00",
-        assignedClinician: "Dr. Smith",
-        department: "Cardiology",
+        assignedClinician: "Dr. Nkulu Mutombo",
+        department: "Infectious Disease",
         status: "PROCESSED",
       },
       {
         id: 2,
         patientId: "P002",
-        patientName: "Jane Smith",
+        patientName: "Nathalie Mbuyi",
         admissionType: "DISCHARGE",
         encounterType: "INPATIENT",
         timestamp: "2025-11-16T14:15:00",
-        assignedClinician: "Dr. Johnson",
-        department: "Emergency",
+        assignedClinician: "Dr. Tshala Ilunga",
+        department: "HIV/AIDS Clinic",
         status: "PROCESSED",
       },
     ]
@@ -106,7 +106,7 @@ export default function AdmissionsNotifications({ demoMode = false }) {
       const newRecord = {
         id: Date.now(),
         patientId: adtForm.patientId,
-        patientName: "Demo Patient",
+        patientName: "Patient (Demo)",
         ...adtForm,
         status: "PROCESSED",
       }

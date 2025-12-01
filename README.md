@@ -42,6 +42,13 @@ npm run start
 ```
 Frontend runs at `http://localhost:3000`.
 
+### Optional: AI Diagnosis Shortcut
+- Set an environment variable to enable the dashboard button to open your Gradio app in a new tab:
+```bash
+echo "REACT_APP_AI_DIAGNOSIS_URL=https://your-gradio-app.example.com" > .env
+```
+- Restart the frontend dev server after adding/updating `.env`.
+
 ### Connecting Frontend to Server
 - The frontend services call the backend under `http://localhost:8080` (see `src/services/*.js`).
 - Ensure the backend is started before logging in or using non-demo pages.
