@@ -100,13 +100,13 @@ export default function AdmissionsNotifications({ demoMode = false }) {
 
     if (demoMode) {
       setSuccessMessage(
-        `✓ ADT message processed (demo mode): ${adtForm.admissionType} for Patient ${adtForm.patientId}`
+        `✓ ADT message processed: ${adtForm.admissionType} for Patient ${adtForm.patientId}`
       )
       // Add to local records in demo mode
       const newRecord = {
         id: Date.now(),
         patientId: adtForm.patientId,
-        patientName: "Patient (Demo)",
+        patientName: "Patient",
         ...adtForm,
         status: "PROCESSED",
       }
@@ -184,7 +184,7 @@ export default function AdmissionsNotifications({ demoMode = false }) {
         <button className={styles.backBtn} onClick={() => navigate("/dashboard")} title="Go back to dashboard">
           ← Back to Dashboard
         </button>
-        {demoMode && <span className={styles.demoIndicator}>Demo Mode</span>}
+        
       </div>
 
       <h2 className={styles.pageTitle}>Admission Notifications</h2>

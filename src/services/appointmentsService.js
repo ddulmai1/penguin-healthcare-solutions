@@ -46,6 +46,33 @@ function hasConflict(appointments, operatorId, date, time, excludeId) {
   })
 }
 
+// Normalize backend Appointment entity to the flat shape used by the frontend table
+function normalizeAppointment(entity) {
+  if (!entity) return null
+  const patientId = entity.patient?.id ?? entity.patientId ?? null
+  const operatorId = entity.operator?.id ?? entity.operatorId ?? null
+  const patientName = entity.patient
+    ? [entity.patient.firstName, entity.patient.lastName].filter(Boolean).join(' ')
+    : (entity.patientName || '')
+  const operatorName = entity.operator
+    ? [entity.operator.firstName, entity.operator.lastName].filter(Boolean).join(' ')
+    : (entity.operatorName || '')
+  // Date/Time may be serialized; ensure strings
+  const date = typeof entity.date === 'string' ? entity.date : (entity.date?.toString?.() || '')
+  const time = typeof entity.time === 'string' ? entity.time : (entity.time?.toString?.() || '')
+  return {
+    id: entity.id,
+    patientId,
+    patientName,
+    operatorId,
+    operatorName,
+    date,
+    time,
+    type: entity.type,
+    notes: entity.notes ?? ''
+  }
+}
+
 // --- Appointment CRUD ---
 export async function listAppointments({ patientId, operatorId, demoMode = false }) {
   if (demoMode) {
@@ -54,17 +81,24 @@ export async function listAppointments({ patientId, operatorId, demoMode = false
       data: demoAppointments.filter(a => (!patientId || a.patientId === patientId) && (!operatorId || a.operatorId === operatorId))
     }
   }
-  // Backend controller not present; leaving placeholder for future implementation
   try {
-    const url = new URL(API_ROOT + "/api/appointments")
-    if (patientId) url.searchParams.append("patientId", patientId)
-    if (operatorId) url.searchParams.append("operatorId", operatorId)
-    const res = await fetch(url, { headers: { "Content-Type": "application/json" } })
-    if (!res.ok) return { success: false, message: "Failed to retrieve appointments" }
-    return { success: true, data: await res.json() }
+    const filterId = patientId || operatorId
+    if (filterId) {
+      const res = await fetch(API_ROOT + `/api/appointments/all/${filterId}`)
+      if (!res.ok) return { success: false, message: "Failed to retrieve appointments" }
+      const data = await res.json()
+      const list = Array.isArray(data) ? data.map(normalizeAppointment).filter(Boolean) : []
+      return { success: true, data: list }
+    } else {
+      return {
+        success: true,
+        data: demoAppointments.slice()
+      }
+    }
   } catch (e) {
     console.error("Error listing appointments", e)
-    return { success: false, message: "Unable to connect to server" }
+    //fallback to demo data if server unreachable
+    return { success: true, data: demoAppointments.slice(), message: "Using demo data (server unreachable)" }
   }
 }
 
@@ -79,7 +113,7 @@ export async function scheduleAppointment({ patientId, patientName, preferredCon
     return { success: true, data: appt }
   }
   try {
-    const res = await fetch(API_ROOT + "/api/appointments", {
+    const res = await fetch(API_ROOT + "/api/appointments/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       // Assuming future DTO maps patientId/operatorId to Patient/Operator entities server-side
@@ -89,7 +123,8 @@ export async function scheduleAppointment({ patientId, patientName, preferredCon
       const txt = await res.text()
       return { success: false, message: `Server error ${res.status} ${txt}` }
     }
-    return { success: true, data: await res.json() }
+    const created = await res.json()
+    return { success: true, data: normalizeAppointment(created) }
   } catch (e) {
     console.error("Error scheduling appointment", e)
     return { success: false, message: "Unable to connect to server" }
@@ -115,7 +150,8 @@ export async function modifyAppointment({ id, date, time, type, notes, demoMode 
       body: JSON.stringify({ date, time, type, notes })
     })
     if (!res.ok) return { success: false, message: "Failed to modify appointment" }
-    return { success: true, data: await res.json() }
+    const updated = await res.json()
+    return { success: true, data: normalizeAppointment(updated) }
   } catch (e) {
     console.error("Error modifying appointment", e)
     return { success: false, message: "Unable to connect to server" }

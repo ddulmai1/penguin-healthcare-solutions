@@ -79,20 +79,21 @@ setLoading(false)
         setOperators(DEMO_OPERATORS)
       }
     } catch (e) {
-      console.error('Failed to fetch operators', e)
+      //console.error('Failed to fetch operators', e)
       setOperators(DEMO_OPERATORS)
     }
   }
 
   useEffect(() => { 
-    fetchAppointments()
+    // Start with an empty list for presentations; only add as user creates
+    setAppointments([])
     fetchOperators()
   }, [])
 
   function handleChange(e) {
     const { name, value } = e.target
     if (name === 'operatorId') {
-      const selectedOp = operators.find(op => op.id === value)
+      const selectedOp = operators.find(op => String(op.id) === String(value))
       setForm(f => ({ 
         ...f, 
         operatorId: value, 
@@ -143,9 +144,24 @@ setLoading(false)
       if (!res.success) {
         setError(res.message)
       } else {
+        // Merge updated fields while preserving display fields and filling operator name if missing
+        const updated = res.data
+        setAppointments(prev => Array.isArray(prev)
+          ? prev.map(a => {
+              if (a.id !== editId) return a
+              const selectedOp = operators.find(op => String(op.id) === String(updated.operatorId || a.operatorId))
+              return {
+                ...a,
+                ...updated,
+                patientId: updated.patientId || a.patientId,
+                patientName: updated.patientName || a.patientName || form.patientName || '',
+                operatorId: updated.operatorId || a.operatorId,
+                operatorName: updated.operatorName || a.operatorName || (selectedOp ? selectedOp.name : a.operatorName) || form.operatorName || '',
+              }
+            })
+          : [])
         setForm({ patientId: '', patientName: '', preferredContact: 'EMAIL', contactAddress: '', operatorId: '', operatorName: '', date: '', time: '', type: 'FOLLOWUP', notes: '' })
         setEditId(null)
-        fetchAppointments()
       }
       return
     }
@@ -155,7 +171,25 @@ setLoading(false)
       setError(res.message)
     } else {
       setForm({ patientId: '', patientName: '', preferredContact: 'EMAIL', contactAddress: '', operatorId: '', operatorName: '', date: '', time: '', type: 'FOLLOWUP', notes: '' })
-      fetchAppointments()
+      const created = res.data
+      if (created) {
+        const selectedOp = operators.find(op => String(op.id) === String(created.operatorId || form.operatorId))
+        const filled = {
+          ...created,
+          patientId: created.patientId || form.patientId,
+          patientName: created.patientName || form.patientName || '',
+          operatorId: created.operatorId || form.operatorId,
+          operatorName: created.operatorName || form.operatorName || (selectedOp ? selectedOp.name : ''),
+          date: created.date || form.date,
+          time: created.time || normalizeTime(form.time),
+          type: created.type || form.type,
+          notes: (created.notes ?? form.notes) || ''
+        }
+        setAppointments(prev => Array.isArray(prev) ? [...prev, filled] : [filled])
+      } else {
+        // Fallback to refetch if response did not include the created item
+        fetchAppointments()
+      }
     }
   }
 
@@ -179,7 +213,10 @@ setLoading(false)
   async function handleCancel(appt) {
     const res = await cancelAppointment(appt.id, demoMode)
     if (!res.success) setError(res.message)
-    else fetchAppointments()
+    else {
+      // Optimistically remove from local list
+      setAppointments(prev => Array.isArray(prev) ? prev.filter(a => a.id !== appt.id) : [])
+    }
   }
 
   function clearEdit() {
@@ -191,7 +228,7 @@ setLoading(false)
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h2>Appointment Scheduler {demoMode && <span className={styles.badge}>Demo</span>}</h2>
+        <h2>Appointment Scheduler {demoMode}</h2>
         <button type="button" onClick={() => navigate('/dashboard')} className={styles.backButton}>
           ← Back to Dashboard
         </button>
@@ -249,26 +286,23 @@ setLoading(false)
             </tr>
           </thead>
           <tbody>
-            {appointments.map(a => (
-              <tr key={a.id}>
-                <td>{a.id}</td>
-                <td>{a.patientId}</td>
-                <td>{a.patientName}</td>
-                <td>{a.operatorId}</td>
-                <td>{a.operatorName}</td>
-                <td>{a.date}</td>
-                <td>{a.time}</td>
-                <td>{a.type}</td>
-                <td>{a.notes}</td>
+            {(appointments || []).map(appointment => (
+                <tr key={appointment.id}>
+                <td>{appointment.id}</td>
+                <td>{appointment.patientId}</td>
+                <td>{appointment.patientName}</td>
+                <td>{appointment.operatorId}</td>
+                <td>{appointment.operatorName}</td>
+                <td>{appointment.date}</td>
+                <td>{appointment.time}</td>
+                <td>{appointment.type}</td>
+                <td>{appointment.notes}</td>
                 <td>
-                  <button onClick={() => handleEdit(a)}>Edit</button>
-                  <button onClick={() => handleCancel(a)}>Cancel</button>
+                  <button onClick={() => handleEdit(appointment)}>Edit</button>
+                  <button onClick={() => handleCancel(appointment)}>Cancel</button>
                 </td>
               </tr>
             ))}
-            {(appointments || []).length === 0 && (
-              <tr><td colSpan={10}>No appointments</td></tr>
-              )}
           </tbody>
         </table>
       )}

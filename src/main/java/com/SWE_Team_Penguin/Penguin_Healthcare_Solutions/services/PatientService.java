@@ -41,11 +41,11 @@ public class PatientService {
         return patientRepository.findByUsername(username);
     }
 
-    @PostConstruct
-    public void login() {
-        createPatient(new Patient("patient_john", "password123", "John", "Patient", Date.valueOf("2003-3-10"), Gender.MAN,
-                Sex.MALE, "None", "No notes", Patient.PreferredContact.SMS, "test@email.com"));
+    // @PostConstruct
+    // public void login() {
+    //     createPatient(new Patient("patient_john", "password123", "John", "Patient", Date.valueOf("2003-3-10"), Gender.MAN,
+    //             Sex.MALE, "None", "No notes", Patient.PreferredContact.SMS, "test@email.com"));
 
-    }
+    // }
 }
   

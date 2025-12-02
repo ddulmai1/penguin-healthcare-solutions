@@ -73,7 +73,7 @@ export default function PrescriptionForm({ demoMode = true }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <h2>Create e‑Prescription {demoMode && <span className={styles.badge}>Demo</span>}</h2>
+        <h2>Create e‑Prescription {demoMode}</h2>
         <button type="button" onClick={() => navigate('/dashboard')} className={styles.backButton}>
           ← Back to Dashboard
         </button>

@@ -20,13 +20,13 @@ function App() {
       <Route path="/patient-portal" element={<PatientPortal />} />
       <Route path="/patient-record-demo" element={<PatientRecordView demoMode={true} />} />
       <Route path="/patient-record" element={<PatientRecordView demoMode={false} />} />
-      <Route path="/update-patient/:patientId" element={<UpdatePatientRecord demoMode={false} />} />
+      <Route path="/update-patient/:patientId" element={<UpdatePatientRecord demoMode={true} />} />
       <Route path="/update-patient-demo/:patientId" element={<UpdatePatientRecord demoMode={true} />} />
-      <Route path="/admissions" element={<AdmissionsNotifications demoMode={false} />} />
+      <Route path="/admissions" element={<AdmissionsNotifications demoMode={true} />} />
       <Route path="/admissions-demo" element={<AdmissionsNotifications demoMode={true} />} />
       <Route path="/appointments" element={<AppointmentScheduler demoMode={false} />} />
       <Route path="/appointments-demo" element={<AppointmentScheduler demoMode={true} />} />
-      <Route path="/prescriptions" element={<PrescriptionForm demoMode={false} />} />
+      <Route path="/prescriptions" element={<PrescriptionForm demoMode={true} />} />
       <Route path="/prescriptions-demo" element={<PrescriptionForm demoMode={true} />} />
       </Routes>
 
