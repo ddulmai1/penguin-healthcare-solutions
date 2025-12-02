@@ -15,6 +15,7 @@ export default function LoginForm() {
     e.preventDefault()
     setMessage("Authenticating...")
 
+
     try {
       const response = await authenticateUser(username, password)
       if (response.success) {
