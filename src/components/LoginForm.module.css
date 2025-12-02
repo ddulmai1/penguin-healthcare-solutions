@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #93a2e6;
+  background: linear-gradient(135deg, #0a3d62 0%, #1a5f7a 100%);
   padding: 1rem;
 }
 
@@ -57,30 +57,33 @@
 
 .login-container input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: #0a3d62;
+  box-shadow: 0 0 0 3px rgba(10, 61, 98, 0.1);
 }
 
 .login-container button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #667eea;
+  background-color: #0a3d62;
   color: white;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
   box-sizing: border-box;
 }
 
 .login-container button:hover {
-  background-color: #5568d3;
+  background-color: #1a5f7a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 61, 98, 0.3);
 }
 
 .login-container button:active {
-  background-color: #4c5bc4;
+  background-color: #0a3d62;
+  transform: translateY(0);
 }
 
 .login-container p {
@@ -99,7 +102,7 @@
 }
 
 .register-link {
-  color: #667eea;
+  color: #0a3d62;
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
@@ -107,6 +110,6 @@
 }
 
 .register-link:hover {
-  color: #5568d3;
+  color: #1a5f7a;
   text-decoration: underline;
 }

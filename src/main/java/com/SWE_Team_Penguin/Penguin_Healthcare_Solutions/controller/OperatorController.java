@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -89,6 +90,11 @@ public class OperatorController {
         public void setPassword(String password) {
             this.password = password;
         }
+    }
+
+    @GetMapping("/all")
+    public List<Operator> getAllOperators() {
+        return operatorService.getAllOperators();
     }
 }
 

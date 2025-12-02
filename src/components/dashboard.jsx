@@ -34,7 +34,7 @@ export default function Dashboard() {
   }
 
   const handleViewPatientRecord = () => {
-    navigate("/patient-record")
+    navigate("/patient-record-demo")
   }
 
   const handleViewPatientRecordDemo = () => {
@@ -58,6 +58,25 @@ export default function Dashboard() {
     navigate("/admissions")
   }
 
+  const handleAppointments = () => {
+    navigate("/appointments")
+  }
+
+  const handlePrescriptions = () => {
+    navigate("/prescriptions")
+  }
+
+  const handleAiDiagnosis = () => {
+    const url = process.env.REACT_APP_AI_DIAGNOSIS_URL
+    if (url && typeof url === "string" && url.trim().length > 0) {
+      window.open(url, "_blank", "noopener,noreferrer")
+    } else {
+      alert(
+        "AI Diagnosis URL is not configured. Set REACT_APP_AI_DIAGNOSIS_URL in your .env and restart the app."
+      )
+    }
+  }
+
   if (!user) {
     return <div>Loading...</div>
   }
@@ -79,7 +98,7 @@ export default function Dashboard() {
 
       <main className={styles.content}>
         <div className={styles.grid}>
-        <button className={styles.card}>Register Patient</button>
+        {/* <button className={styles.card}>Register Patient</button> */}
           <button 
             onClick={handleViewPatientRecord} 
             className={styles.card}
@@ -94,9 +113,9 @@ export default function Dashboard() {
           </button>
           <button className={styles.card} onClick={handleUpdatePatientClick}>Update Patient</button>
           <button className={styles.card} onClick={handleAdmissions}>Admissions</button>
-          <button className={styles.card}>Appointments</button>
-          <button className={styles.card}>Prescription</button>
-          <button className={styles.card}>AI‑Assisted Diagnosis</button>
+          <button className={styles.card} onClick={handleAppointments}>Appointments</button>
+          <button className={styles.card} onClick={handlePrescriptions}>Prescription</button>
+          <button className={styles.card} onClick={handleAiDiagnosis}>AI‑Assisted Diagnosis</button>
         </div>
         {showPatientIdPrompt && (
           <div className={styles.patientIdPromptOverlay}>
