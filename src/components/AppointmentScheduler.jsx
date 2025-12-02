@@ -266,7 +266,9 @@ setLoading(false)
                 </td>
               </tr>
             ))}
-            {appointments.length === 0 && <tr><td colSpan={10}>No appointments</td></tr>}
+            {(appointments || []).length === 0 && (
+              <tr><td colSpan={10}>No appointments</td></tr>
+              )}
           </tbody>
         </table>
       )}
