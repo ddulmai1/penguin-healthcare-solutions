@@ -1,6 +1,6 @@
 export async function authenticateUser(username, password) {
   try {
-    const response = await fetch("http://localhost:8080/api/operators/authenticate", {
+    const response = await fetch("/api/operators/authenticate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),

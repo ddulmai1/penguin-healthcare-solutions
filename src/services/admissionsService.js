@@ -8,7 +8,7 @@
  */
 export async function submitADTMessage(adtMessage) {
   try {
-    const response = await fetch("http://localhost:8080/api/admission/createAdmission", {
+    const response = await fetch("/api/admission/createAdmission", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(adtMessage),
@@ -33,7 +33,7 @@ export async function submitADTMessage(adtMessage) {
  */
 export async function getAdmissionRecords() {
   try {
-    const response = await fetch("http://localhost:8080/api/admission/all", {
+    const response = await fetch("/api/admission/all", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
@@ -63,7 +63,7 @@ export async function getPatientAdmissions(patientId) {
     // Convert string ID format (P001, 001, etc) to numeric ID (1, 2, ...)
     const numericId = String(patientId).replace(/\D/g, '') || patientId
 
-    const response = await fetch(`http://localhost:8080/api/admission/patient/${numericId}`, {
+    const response = await fetch(`/api/admission/patient/${numericId}`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })

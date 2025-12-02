@@ -23,8 +23,13 @@ public class AdmissionService {
     }
 
     public List<Admission> getAdmissionByPatient(Patient patient) {
-        return admissionRepository.findAll().stream().
-                filter(admission -> admission.getPatient().equals(patient)).toList();
+        long pid = patient != null ? patient.getId() : -1;
+        return admissionRepository.findAll().stream()
+                .filter(admission -> {
+                    Patient ap = admission.getPatient();
+                    return ap != null && ap.getId() == pid;
+                })
+                .toList();
     }
 
     public List<Admission> getAllAdmissions() {
